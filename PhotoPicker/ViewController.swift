@@ -40,7 +40,8 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
     
     func removeElement(element: PhotoImageModel?){
         if let current = element {
-            self.selectModel = self.selectModel.filter({$0 != current});
+            self.selectModel = self.selectModel.filter({$0 != current})
+            self.triggerRefresh = true
         }
     
     }

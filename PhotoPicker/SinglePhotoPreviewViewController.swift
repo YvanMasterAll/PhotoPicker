@@ -35,6 +35,9 @@ class SinglePhotoPreviewViewController: UIViewController,UICollectionViewDataSou
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(SinglePhotoPreviewViewController.eventRemoveImage))
     }
     
+    /**
+     * 删除预览图片操作
+     */
     func eventRemoveImage(){
         let element = self.selectImages?.remove(at: self.currentPage)
         self.updatePageTitle()
