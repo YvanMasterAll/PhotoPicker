@@ -30,10 +30,6 @@ class PhotoPickerController: UINavigationController {
     
     weak var imageSelectDelegate: PhotoPickerControllerDelegate?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }

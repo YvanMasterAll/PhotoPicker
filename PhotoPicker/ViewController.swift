@@ -38,12 +38,14 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
         return false
     }
     
+    /**
+     * 删除已选择图片数据 Model
+     */
     func removeElement(element: PhotoImageModel?){
         if let current = element {
             self.selectModel = self.selectModel.filter({$0 != current})
-            self.triggerRefresh = true
+            self.triggerRefresh = true // 删除数据事出发重绘界面逻辑
         }
-    
     }
     
     
@@ -51,12 +53,10 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .default
         self.navigationController?.navigationBar.barStyle = .default
-        
-        if self.triggerRefresh {
+        if self.triggerRefresh { // 检测是否需要重绘界面
             self.triggerRefresh = false
             self.updateView()
         }
-        
     }
     
     private func updateView(){
@@ -149,6 +149,9 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
     }
     
     
+    /**
+     * 页面底部 stylesheet
+     */
     func eventAddImage() {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -172,17 +175,17 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
     }
     
     /**
-     拍照获取
+     * 拍照获取
      */
     private func selectByCamera(){
         // todo take photo task
     }
     
     /**
-     从相册中选择图片
+     * 从相册中选择图片
      */
     private func selectFromPhoto(){
-        
+
         PHPhotoLibrary.requestAuthorization { (status) -> Void in
             switch status {
             case .authorized:
@@ -195,22 +198,26 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
         }
     }
     
+    /**
+     * 用户相册未授权，Dialog提示
+     */
     private func showNoPermissionDailog(){
         let alert = UIAlertController.init(title: nil, message: "没有打开相册的权限", preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "确定", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
+    /**
+     * 打开本地相册列表
+     */
     private func showLocalPhotoGallery(){
         let picker = PhotoPickerController(type: PageType.RecentAlbum)
         picker.imageSelectDelegate = self
         picker.modalPresentationStyle = .popover
         
-        // max select number
-        PhotoPickerController.imageMaxSelectedNum = 4
+        PhotoPickerController.imageMaxSelectedNum = 4 // 允许选择的最大图片张数
         
-        // already selected image num
-        let realModel = self.getModelExceptButton()
+        let realModel = self.getModelExceptButton() // 获取已经选择过的图片
         PhotoPickerController.alreadySelectedImageNum = realModel.count
         
         self.show(picker, sender: nil)
