@@ -43,7 +43,6 @@
 		CE019C621C8C504B00DBAB3B /* photoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE019C631C8C504B00DBAB3B /* photoCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = photoCollectionViewCell.xib; sourceTree = "<group>"; };
 		CE019C661C8C7A1D00DBAB3B /* PhotoPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPickerController.swift; sourceTree = "<group>"; };
-		CE0463091F3B06F9006C32AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		CE9106851C8FDE190055DE61 /* PhotoPreviewToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPreviewToolbarView.swift; sourceTree = "<group>"; };
 		CE9106871C900E1A0055DE61 /* PhotoPreviewBottomBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPreviewBottomBarView.swift; sourceTree = "<group>"; };
 		CE9F28431C8D54F0004F3BA2 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -290,7 +289,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CEBCC8B41C893D5A000BD551 /* Base */,
-				CE0463091F3B06F9006C32AF /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
