@@ -8,8 +8,9 @@
 
 import UIKit
 import Photos
+import MobileCoreServices
 
-class ViewController: UIViewController,PhotoPickerControllerDelegate {
+class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var selectModel = [PhotoImageModel]()
     var containerView = UIView()
@@ -28,7 +29,7 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
             selectModel.append(PhotoImageModel(type: ModelType.Button, data: nil))
         }
     }
-    
+
     private func hasButton() -> Bool{
         for item in self.selectModel {
             if item.type == ModelType.Button {
@@ -138,7 +139,7 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
         }
     }
     
-    // MARK: -  button event
+    // MARK: - 按钮事件
     func eventPreview(button:UIButton){
         let preview = SinglePhotoPreviewViewController()
         let data = self.getModelExceptButton()
@@ -149,9 +150,7 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
     }
     
     
-    /**
-     * 页面底部 stylesheet
-     */
+    // 页面底部 stylesheet
     func eventAddImage() {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -174,12 +173,60 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    /**
-     * 拍照获取
-     */
+    // 拍照获取
     private func selectByCamera(){
-        // todo take photo task
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera // 调用摄像头
+        imagePicker.cameraDevice = .rear // 后置摄像头拍照
+        imagePicker.cameraCaptureMode = .photo // 拍照
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        imagePicker.mediaTypes = [kUTTypeImage as String]
+        
+        imagePicker.modalPresentationStyle = .popover
+        self.show(imagePicker, sender: nil)
     }
+    
+    // MARK: -  拍照 delegate相关方法
+    // 退出拍照
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // 完成拍照
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        let mediaType = info[UIImagePickerControllerMediaType] as! String;
+        if mediaType == kUTTypeImage as String { // 图片类型
+            var image: UIImage? = nil
+            var localId: String? = ""
+            
+            if picker.isEditing { // 拍照图片运行编辑，则优先尝试从编辑后的类型中获取图片
+                image = info[UIImagePickerControllerEditedImage] as? UIImage
+            }else{
+                image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            }
+            // 存入相册
+            if image != nil {
+                PHPhotoLibrary.shared().performChanges({ 
+                    let result = PHAssetChangeRequest.creationRequestForAsset(from: image!)
+                    let assetPlaceholder = result.placeholderForCreatedAsset
+                    localId = assetPlaceholder?.localIdentifier
+                }, completionHandler: { (success, error) in
+                    if success && localId != nil {
+                        let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [localId!], options: nil)
+                        let asset = assetResult[0]
+                        self.selectModel.insert(PhotoImageModel.init(type: ModelType.Image, data: asset), at: 0)
+                        DispatchQueue.main.async {
+                            self.renderView()
+                        }
+                    }
+                })
+            }
+        }
+    }
+
     
     /**
      * 从相册中选择图片
