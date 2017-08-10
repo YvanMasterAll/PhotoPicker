@@ -48,7 +48,7 @@ class PhotoPickerController: UINavigationController {
                     if model.count > 0 {
                         let layout = PhotoCollectionViewController.configCustomCollectionLayout()
                         let controller = PhotoCollectionViewController(collectionViewLayout: layout)
-                        
+    
                         controller.fetchResult = model as? PHFetchResult<PHObject>;
                         self.pushViewController(controller, animated: false)
                     }

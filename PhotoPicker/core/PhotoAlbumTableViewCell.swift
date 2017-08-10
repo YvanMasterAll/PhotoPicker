@@ -44,7 +44,9 @@ class PhotoAlbumTableViewCell: UITableViewCell {
                 imageOptions.resizeMode = .exact
                 
                 PHImageManager.default().requestImage(for: firstImageAsset, targetSize: size, contentMode: .aspectFill, options: imageOptions, resultHandler: { (image, info) -> Void in
-                    self.albumCover.image = image
+                    DispatchQueue.main.async {
+                        self.albumCover.image = image
+                    }
                 })
             }
         }

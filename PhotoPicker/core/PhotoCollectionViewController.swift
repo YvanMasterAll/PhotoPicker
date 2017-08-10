@@ -284,12 +284,16 @@ class PhotoCollectionViewController: UICollectionViewController, PHPhotoLibraryC
         cell.eventDelegate = self
 		
 		if let asset = self.fetchResult![indexPath.row] as? PHAsset {
+            
 			cell.model = asset
 			cell.representedAssetIdentifier = asset.localIdentifier
 			self.imageManager.requestImage(for: asset, targetSize: self.assetGridThumbnailSize!, contentMode: .aspectFill, options: nil) { (image, info) -> Void in
-				if cell.representedAssetIdentifier == asset.localIdentifier {
-					cell.thumbnail.image = image
-				}
+                DispatchQueue.main.async {
+                    if cell.representedAssetIdentifier == asset.localIdentifier {
+                        cell.thumbnail.image = image
+                    }
+                }
+				
 			}
             cell.updateSelected(select: PhotoImage.instance.selectedImage.index(of: asset) != nil)
 		}

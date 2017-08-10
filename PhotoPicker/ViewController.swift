@@ -232,15 +232,16 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
      * 从相册中选择图片
      */
     private func selectFromPhoto(){
-
-        PHPhotoLibrary.requestAuthorization { (status) -> Void in
-            switch status {
-            case .authorized:
-                self.showLocalPhotoGallery()
-                break
-            default:
-                self.showNoPermissionDailog()
-                break
+        PHPhotoLibrary.requestAuthorization {[unowned self] (status) -> Void in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    self.showLocalPhotoGallery()
+                    break
+                default:
+                    self.showNoPermissionDailog()
+                    break
+                }
             }
         }
     }
@@ -261,12 +262,9 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
         let picker = PhotoPickerController(type: PageType.RecentAlbum)
         picker.imageSelectDelegate = self
         picker.modalPresentationStyle = .popover
-        
         PhotoPickerController.imageMaxSelectedNum = 4 // 允许选择的最大图片张数
-        
         let realModel = self.getModelExceptButton() // 获取已经选择过的图片
         PhotoPickerController.alreadySelectedImageNum = realModel.count
-        
         self.show(picker, sender: nil)
     }
     
@@ -285,7 +283,6 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
                 let item = self.selectModel[i]
                 if item.type == .Button {
                     self.selectModel.remove(at: i)
-
                 }
             }
         }
