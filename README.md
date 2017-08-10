@@ -39,4 +39,10 @@ enum PageType{
 
 ## 注意
 1. 当前版本不支持视频，如有需求请反馈
+2. 调用相册和拍照需要在info.plist文件中添加如下两个key, 否则程序会崩溃：
+
+```swift
+Privacy - Photo Library Usage Description
+Privacy - Camera Usage Description
+```
 
