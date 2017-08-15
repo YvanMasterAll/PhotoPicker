@@ -217,9 +217,8 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
                     if success && localId != nil {
                         let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [localId!], options: nil)
                         let asset = assetResult[0]
-                        self.selectModel.insert(PhotoImageModel.init(type: ModelType.Image, data: asset), at: 0)
                         DispatchQueue.main.async {
-                            self.renderView()
+                            self.renderSelectImages(images: [asset])
                         }
                     }
                 })
@@ -265,6 +264,7 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
         PhotoPickerController.imageMaxSelectedNum = 4 // 允许选择的最大图片张数
         let realModel = self.getModelExceptButton() // 获取已经选择过的图片
         PhotoPickerController.alreadySelectedImageNum = realModel.count
+        debugPrint(realModel.count)
         self.show(picker, sender: nil)
     }
     
