@@ -59,7 +59,7 @@ class PhotoCollectionViewController: UICollectionViewController, PHPhotoLibraryC
         
         if PhotoImage.instance.selectedImage.count > 0 {
             self.toolbar?.changeNumber(number: PhotoImage.instance.selectedImage.count)
-        }
+        }        
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -284,7 +284,6 @@ class PhotoCollectionViewController: UICollectionViewController, PHPhotoLibraryC
         cell.eventDelegate = self
 		
 		if let asset = self.fetchResult![indexPath.row] as? PHAsset {
-            
 			cell.model = asset
 			cell.representedAssetIdentifier = asset.localIdentifier
 			self.imageManager.requestImage(for: asset, targetSize: self.assetGridThumbnailSize!, contentMode: .aspectFill, options: nil) { (image, info) -> Void in

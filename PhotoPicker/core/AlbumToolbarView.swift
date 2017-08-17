@@ -70,7 +70,6 @@ class AlbumToolbarView: UIView {
         self.labelTextView!.textColor = UIColor.white
         doneNumberContainer!.addSubview(self.labelTextView!)
         
-        
         doneNumberContainer?.isHidden = true
         
         self.addSubview(self.doneNumberContainer!)
@@ -79,6 +78,7 @@ class AlbumToolbarView: UIView {
         let divider = UIView(frame: CGRect(x:0, y:0, width:width, height:1))
         divider.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.15)
         self.addSubview(divider)
+        
     }
     
     // MARK: -  toolbar delegate

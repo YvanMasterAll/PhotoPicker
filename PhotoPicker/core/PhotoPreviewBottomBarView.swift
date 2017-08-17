@@ -11,6 +11,7 @@ import UIKit
 
 protocol PhotoPreviewBottomBarViewDelegate:class{
     func onDoneButtonClicked()
+    func onEditImage()
 }
 
 class PhotoPreviewBottomBarView: UIView {
@@ -70,14 +71,30 @@ class PhotoPreviewBottomBarView: UIView {
         self.labelTextView!.backgroundColor = UIColor.clear
         self.labelTextView!.textColor = UIColor.white
         doneNumberContainer!.addSubview(self.labelTextView!)
-        
         self.addSubview(self.doneNumberContainer!)
+        
+        // 编辑图片按钮
+        let btnEdit = UIButton.init(type: .system)
+        btnEdit.frame = CGRect.init(x: padding, y: (toolbarHeight - buttonHeight) / 2, width: 40, height: 40)
+        btnEdit.setTitle("编辑", for: .normal)
+        btnEdit.setTitleColor(UIColor.white, for: .normal)
+        btnEdit.addTarget(self, action: #selector(editImage), for: .touchUpInside)
+        self.addSubview(btnEdit)
     }
+    
+    
     
     // MARK: -  Event delegate
     func eventDoneClicked(){
         if let delegate = self.delegate{
             delegate.onDoneButtonClicked()
+        }
+    }
+    
+    // 编辑图片event
+    func editImage() {
+        if let deledate = self.delegate {
+            deledate.onEditImage()
         }
     }
     

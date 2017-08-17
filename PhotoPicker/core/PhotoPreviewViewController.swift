@@ -154,6 +154,15 @@ class PhotoPreviewViewController: UIViewController,UICollectionViewDataSource,UI
         
     }
     
+    // MARK: -  编辑图片
+    func onEditImage() {
+        if let currentModel = self.allSelectImage![self.currentPage] as? PHAsset {
+            let photoCropView = PhotoCropView.init(image: currentModel, frame: self.view.bounds)
+            self.view.addSubview(photoCropView)
+        }
+        
+    }
+    
     
     // MARK: -  scroll page
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

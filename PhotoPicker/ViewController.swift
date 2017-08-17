@@ -264,7 +264,6 @@ class ViewController: UIViewController,PhotoPickerControllerDelegate, UIImagePic
         PhotoPickerController.imageMaxSelectedNum = 4 // 允许选择的最大图片张数
         let realModel = self.getModelExceptButton() // 获取已经选择过的图片
         PhotoPickerController.alreadySelectedImageNum = realModel.count
-        debugPrint(realModel.count)
         self.show(picker, sender: nil)
     }
     
