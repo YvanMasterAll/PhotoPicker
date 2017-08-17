@@ -30,8 +30,6 @@ class PhotoDrawBoard: UIView {
     }
     
     func setupView() {
-        // 底部菜单高度
-        
         self.canvas = PhotoDrawView.init(frame: CGRect.init(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height - bottomMenuHeight))
         self.addSubview(self.canvas!)
         self.bottomColorMenu()
@@ -90,8 +88,8 @@ class PhotoDrawBoard: UIView {
             
             btn.isSelected = true
             let model = self.colorBtns[btn.tag]
-            // 动画
-            let scaleAnimation = CGAffineTransform.init(scaleX: 1.2, y: 1.2)
+            // 当前按钮放大选中效果
+            let scaleAnimation = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 6, options: .curveEaseIn, animations: {
                 btn.transform = scaleAnimation
             }, completion: nil)

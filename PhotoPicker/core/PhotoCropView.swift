@@ -26,10 +26,7 @@ class PhotoCropView: UIView {
     }
     
     func setupView() {
-//        let drawView = PhotoDrawView.init(frame: self.bounds)
-//        drawView.backgroundColor = UIColor.white
-//        self.addSubview(drawView)
-        let canvas = PhotoDrawBoard.init(frame: self.bounds)
+        let canvas = PhotoDrawBoard(frame: self.bounds)
         self.addSubview(canvas)
     }
 }

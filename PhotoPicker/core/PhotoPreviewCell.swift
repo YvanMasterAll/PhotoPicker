@@ -67,7 +67,7 @@ class PhotoPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     
 	func renderModel(asset: PHAsset) {
 		PhotoImageManager.sharedManager.getPhotoByMaxSize(asset: asset, size: self.bounds.width) { (image, info) -> Void in
-			self.imageView.image = image
+			self.imageView.image = image            
 			self.resizeImageView()
 		}
 	}
