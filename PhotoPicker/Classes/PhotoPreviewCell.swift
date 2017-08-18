@@ -75,10 +75,7 @@ class PhotoPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
 	func resizeImageView() {
         self.imageContainerView.frame = CGRect(x:0, y:0, width: self.frame.width, height: self.imageContainerView.bounds.height)
 		let image = self.imageView.image!
-        
-        
 		if image.size.height / image.size.width > self.bounds.height / self.bounds.width {
-			
 			let height = floor(image.size.height / (image.size.width / self.bounds.width))
 			var originFrame = self.imageContainerView.frame
 			originFrame.size.height = height
